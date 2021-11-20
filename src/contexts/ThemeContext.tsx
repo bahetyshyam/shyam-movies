@@ -1,5 +1,5 @@
 import React, { useContext, useReducer } from "react";
-import { ActionKind, ThemeType } from "../enums";
+import { ThemeActionKind, ThemeType } from "../enums";
 type ThemeContextType = {
   theme: ThemeState;
   setTheme: React.Dispatch<ThemeAction>;
@@ -7,10 +7,10 @@ type ThemeContextType = {
 
 type ThemeAction =
   | {
-      type: ActionKind.CHANGE_THEME_DARK;
+      type: ThemeActionKind.CHANGE_THEME_DARK;
     }
   | {
-      type: ActionKind.CHANGE_THEME_LIGHT;
+      type: ThemeActionKind.CHANGE_THEME_LIGHT;
     };
 
 const darkThemePalette: ThemePalette = {
@@ -80,13 +80,13 @@ export function useTheme() {
 
 const themeReducer = (state: ThemeState, action: ThemeAction): ThemeState => {
   switch (action.type) {
-    case ActionKind.CHANGE_THEME_DARK:
+    case ThemeActionKind.CHANGE_THEME_DARK:
       return {
         ...state,
         currentTheme: ThemeType.Dark,
         themePalette: darkThemePalette,
       };
-    case ActionKind.CHANGE_THEME_LIGHT:
+    case ThemeActionKind.CHANGE_THEME_LIGHT:
       return {
         ...state,
         currentTheme: ThemeType.Light,

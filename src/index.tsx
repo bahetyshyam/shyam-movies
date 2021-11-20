@@ -1,20 +1,20 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Router>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <App />
       </ThemeProvider>
     </QueryClientProvider>
-  </React.StrictMode>,
+  </Router>,
   document.getElementById("root")
 );
 

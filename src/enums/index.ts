@@ -3,7 +3,12 @@ export enum ThemeType {
   Dark = "dark",
 }
 
-export enum ActionKind {
+export enum ThemeActionKind {
   CHANGE_THEME_DARK = "CHANGE_THEME_DARK",
   CHANGE_THEME_LIGHT = "CHANGE_THEME_LIGHT",
+}
+
+export enum MovieTVType {
+  Movie = "movie",
+  TV = "tv",
 }
