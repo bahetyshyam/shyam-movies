@@ -1,11 +1,13 @@
 import { Dropdown, IDropdownOption } from "@fluentui/react";
 import { useCallback } from "react";
+import { useLocation } from "react-router";
 import { useFilter } from "../../contexts/FilterContext";
 import { MovieTVType } from "../../enums";
 import SC from "./styles";
 
 interface SideBarProps {}
 const SideBar: React.FunctionComponent<SideBarProps> = () => {
+  const { pathname } = useLocation();
   const {
     type,
     updateType,
@@ -18,7 +20,6 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
     updateYearFrom,
     updateYearTo,
   } = useFilter();
-  console.log(type, genreId, yearFrom, yearTo);
   const typeDropdownOptions = [
     { key: MovieTVType.Movie, text: "Movie" },
     { key: MovieTVType.TV, text: "TV" },
@@ -82,6 +83,17 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
       updateYearTo(item?.key as string);
     }
   };
+
+  const isGenreDisabled = () => {
+    if (pathname === "/trending") return true;
+    else return false;
+  };
+
+  const isYearDisabled = () => {
+    if (pathname === "/trending" || pathname === "/newest") return true;
+    else return false;
+  };
+
   return (
     <SC.MainSectionContainer>
       <Dropdown
@@ -93,6 +105,7 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
       />
       <Dropdown
         label="Genre"
+        disabled={isGenreDisabled()}
         selectedKey={genreId}
         onChange={onChangeGenre}
         placeholder="Select an option"
@@ -100,6 +113,7 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
       />
       <Dropdown
         label="Year From"
+        disabled={isYearDisabled()}
         selectedKey={yearFrom}
         onChange={onChangeYearFrom}
         placeholder="Select an option"
@@ -107,6 +121,7 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
       />
       <Dropdown
         label="Year To"
+        disabled={isYearDisabled()}
         selectedKey={yearTo}
         onChange={onChangeYearTo}
         placeholder="Select an option"
