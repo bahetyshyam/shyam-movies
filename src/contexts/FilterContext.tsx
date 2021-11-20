@@ -51,28 +51,30 @@ export const FilterProvider: React.FC = ({ children }) => {
     contextDefaultValues.tvGenres
   );
 
-  async function getMoviesGenres() {
-    try {
-      const response = await axios.get("genre/movie/list");
-      setMovieGenres([...movieGenres, ...response.data.genres]);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function getTVGenres() {
-    try {
-      const response = await axios.get("genre/tv/list");
-      setTvGenres([...tvGenres, ...response.data.genres]);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   useEffect(() => {
+    async function getMoviesGenres() {
+      try {
+        const response = await axios.get("genre/movie/list");
+        setMovieGenres((movieGenres) => [
+          ...movieGenres,
+          ...response.data.genres,
+        ]);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    async function getTVGenres() {
+      try {
+        const response = await axios.get("genre/tv/list");
+        setTvGenres((tvGenres) => [...tvGenres, ...response.data.genres]);
+      } catch (error) {
+        console.error(error);
+      }
+    }
     getMoviesGenres();
     getTVGenres();
-  }, []);
+  }, [setMovieGenres, setTvGenres]);
 
   const updateType = (type: MovieTVType) => {
     setType(type);

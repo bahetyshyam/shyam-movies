@@ -18,15 +18,16 @@ const Search: React.FunctionComponent<SearchProps> = ({ searchString }) => {
     debouncedSearchItem
   );
 
+  // eslint-disable-next-line
   const debouncedUpdate = useCallback(
     debounce((searchString: string) => {
       setDebouncedSearchItem(searchString);
     }, 1000),
-    []
+    [setDebouncedSearchItem]
   );
   useEffect(() => {
     debouncedUpdate(searchString);
-  }, [searchString]);
+  }, [searchString, debouncedUpdate]);
 
   return isError ? (
     <div>{error as string}</div>

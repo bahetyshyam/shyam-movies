@@ -7,6 +7,7 @@ async function fetchSearchItems(
   searchString: string
 ): Promise<Movie[] | TV[]> {
   if (searchString === "") {
+    // eslint-disable-next-line
     throw "A search string must be provided";
   }
   try {

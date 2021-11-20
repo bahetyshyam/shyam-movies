@@ -42,6 +42,7 @@ const MovieTvItems: React.FunctionComponent<MovieTvItemsProps> = ({
           <img
             key={item.id}
             src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+            alt="poster"
           />
           <h2>{getName()}</h2>
           <h3>{getGenreName()}</h3>

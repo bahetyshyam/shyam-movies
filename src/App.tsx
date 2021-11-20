@@ -12,10 +12,11 @@ function App() {
   const { pathname } = useLocation();
   const history = useHistory();
   useEffect(() => {
+    console.log("Use effect called");
     if (searchString.length > 0 && pathname !== "/search") {
       history.push("/search");
     }
-  }, [searchString]);
+  }, [searchString, history, pathname]);
   useEffect(() => {
     if (pathname !== "/search") {
       setSearchString("");
