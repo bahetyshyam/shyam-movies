@@ -27,3 +27,8 @@ interface ThemeState {
   currentTheme: import("./enums").ThemeType;
   themePalette: ThemePalette;
 }
+
+interface Genre {
+  id: number | string;
+  name: string;
+}

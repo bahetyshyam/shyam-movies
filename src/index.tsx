@@ -4,8 +4,10 @@ import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { BrowserRouter as Router } from "react-router-dom";
+import { initializeIcons } from "@fluentui/react";
 
 const queryClient = new QueryClient();
+initializeIcons();
 
 ReactDOM.render(
   <Router>

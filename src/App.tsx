@@ -11,7 +11,7 @@ function App() {
       <div className="container">
         <FilterProvider>
           <NavBar />
-          <div className="d-flex">
+          <div style={{ display: "flex", width: "100%" }}>
             <MainSection />
             <SideBar />
           </div>
