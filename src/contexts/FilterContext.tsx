@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "../api";
 import { MovieTVType } from "../enums";
+import { getYearFromDateString } from "../utils";
 
 type FilterContextType = {
   type: MovieTVType;
@@ -81,14 +82,14 @@ export const FilterProvider: React.FC = ({ children }) => {
     setGenreId(genreId);
   };
   const updateYearFrom = (yearFrom: string) => {
-    if (new Date(yearFrom).getFullYear() > new Date(yearTo).getFullYear()) {
-      setYearTo(`${new Date(yearFrom).getFullYear()}-12-31`);
+    if (getYearFromDateString(yearFrom) > getYearFromDateString(yearTo)) {
+      setYearTo(`${getYearFromDateString(yearFrom)}-12-31`);
     }
     setYearFrom(yearFrom);
   };
   const updateYearTo = (yearTo: string) => {
-    if (new Date(yearFrom).getFullYear() > new Date(yearTo).getFullYear()) {
-      setYearFrom(`${new Date(yearTo).getFullYear()}-01-01`);
+    if (getYearFromDateString(yearFrom) > getYearFromDateString(yearTo)) {
+      setYearFrom(`${getYearFromDateString(yearTo)}-01-01`);
     }
     setYearTo(yearTo);
   };

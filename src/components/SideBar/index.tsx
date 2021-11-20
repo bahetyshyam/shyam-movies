@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import { useLocation } from "react-router";
 import { useFilter } from "../../contexts/FilterContext";
 import { MovieTVType } from "../../enums";
+import { getYearFromDateString } from "../../utils";
 import SC from "./styles";
 
 interface SideBarProps {}
@@ -37,7 +38,7 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
   const generateYearOptions = useCallback(() => {
     let yearFromDropdownOptions: IDropdownOption[] = [];
     let yearToDropdownOptions: IDropdownOption[] = [];
-    for (let year = 1900; year <= new Date().getFullYear(); year++) {
+    for (let year = 1900; year <= getYearFromDateString(); year++) {
       yearFromDropdownOptions.push({
         key: `${year}-01-01`,
         text: year.toString(),
@@ -85,12 +86,17 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
   };
 
   const isGenreDisabled = () => {
-    if (pathname === "/trending") return true;
+    if (pathname === "/trending" || pathname === "/search") return true;
     else return false;
   };
 
   const isYearDisabled = () => {
-    if (pathname === "/trending" || pathname === "/newest") return true;
+    if (
+      pathname === "/trending" ||
+      pathname === "/newest" ||
+      pathname === "/search"
+    )
+      return true;
     else return false;
   };
 
