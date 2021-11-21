@@ -1,6 +1,8 @@
+import { Spinner, SpinnerSize } from "@fluentui/react";
 import { useFilter } from "../../contexts/FilterContext";
 import { MovieTVType } from "../../enums";
 import { getYearFromDateString } from "../../utils";
+import SC from "./styles";
 
 interface MovieTvItemsProps {
   isLoading: boolean;
@@ -18,6 +20,9 @@ const MovieTvItems: React.FunctionComponent<MovieTvItemsProps> = ({
       function getGenreName() {
         let idToSearch = genreId;
         if (genreId === "all") {
+          if (item.genre_ids.length === 0) {
+            return "No Genre Found";
+          }
           idToSearch = item.genre_ids[0]; //Taking the first genre
         }
         if (type === MovieTVType.Movie) {
@@ -36,29 +41,39 @@ const MovieTvItems: React.FunctionComponent<MovieTvItemsProps> = ({
           ? getYearFromDateString((item as Movie).release_date)
           : getYearFromDateString((item as TV).first_air_date);
       }
+      function imageSource() {
+        if (item.poster_path === null) {
+          return "https://via.placeholder.com/500x750.jpg?text=No+Image+Found";
+        } else return `https://image.tmdb.org/t/p/w500/${item.poster_path}`;
+      }
 
       return (
-        <div>
+        <SC.ItemContainer>
           <img
             key={item.id}
-            src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+            src={imageSource()}
             alt="poster"
+            style={{ width: "100%" }}
           />
-          <h2>{getName()}</h2>
-          <h3>{getGenreName()}</h3>
-          <h3>{getYear()}</h3>
-        </div>
+          <SC.TitleName>{getName()}</SC.TitleName>
+          <SC.GenreYear>{`${getGenreName()} ${getYear()}`}</SC.GenreYear>
+        </SC.ItemContainer>
       );
     });
   };
-
-  return isLoading === true ? (
-    <div>Loading...</div>
-  ) : (
-    <div>
-      {items?.length === 0 ? <div>No items found</div> : renderItems(items)}
-    </div>
-  );
+  if (isLoading === true) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Spinner size={SpinnerSize.large} />
+      </div>
+    );
+  } else {
+    return (
+      <SC.ItemsContainer>
+        {items?.length === 0 ? <div>No items found</div> : renderItems(items)}
+      </SC.ItemsContainer>
+    );
+  }
 };
 
 export default MovieTvItems;

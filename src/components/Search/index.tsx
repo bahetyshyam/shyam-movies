@@ -30,7 +30,9 @@ const Search: React.FunctionComponent<SearchProps> = ({ searchString }) => {
   }, [searchString, debouncedUpdate]);
 
   return isError ? (
-    <div>{error as string}</div>
+    <div style={{ textAlign: "center", fontSize: 16, color: "red" }}>
+      {error as string}
+    </div>
   ) : (
     <MovieTvItems isLoading={isLoading} items={data} />
   );

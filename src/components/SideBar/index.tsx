@@ -5,6 +5,7 @@ import { useFilter } from "../../contexts/FilterContext";
 import { MovieTVType } from "../../enums";
 import { getYearFromDateString } from "../../utils";
 import SC from "./styles";
+import ThemeToggle from "./ThemeToggle";
 
 interface SideBarProps {}
 const SideBar: React.FunctionComponent<SideBarProps> = () => {
@@ -101,39 +102,57 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
   };
 
   return (
-    <SC.MainSectionContainer>
-      <Dropdown
-        label="Type"
-        selectedKey={type}
-        onChange={onChangeType}
-        placeholder="Select an option"
-        options={typeDropdownOptions}
-      />
-      <Dropdown
-        label="Genre"
-        disabled={isGenreDisabled()}
-        selectedKey={genreId}
-        onChange={onChangeGenre}
-        placeholder="Select an option"
-        options={generateGenresDropdownOptions()}
-      />
-      <Dropdown
-        label="Year From"
-        disabled={isYearDisabled()}
-        selectedKey={yearFrom}
-        onChange={onChangeYearFrom}
-        placeholder="Select an option"
-        options={generateYearOptions()[0]}
-      />
-      <Dropdown
-        label="Year To"
-        disabled={isYearDisabled()}
-        selectedKey={yearTo}
-        onChange={onChangeYearTo}
-        placeholder="Select an option"
-        options={generateYearOptions()[1]}
-      />
-    </SC.MainSectionContainer>
+    <SC.SideBarContainer>
+      <SC.OptionsHeading>DISCOVER OPTIONS</SC.OptionsHeading>
+      <SC.FilterItem>
+        <label>Type</label>
+        <Dropdown
+          selectedKey={type}
+          onChange={onChangeType}
+          placeholder="Select an option"
+          options={typeDropdownOptions}
+        />
+      </SC.FilterItem>
+      <SC.FilterItem>
+        <label>Genre</label>
+
+        <Dropdown
+          disabled={isGenreDisabled()}
+          selectedKey={genreId}
+          onChange={onChangeGenre}
+          placeholder="Select an option"
+          options={generateGenresDropdownOptions()}
+        />
+      </SC.FilterItem>
+      <SC.FilterItem>
+        <label>Year</label>
+        <div style={{ display: "flex", width: "100%" }}>
+          <div style={{ marginRight: 10, width: "50%" }}>
+            <Dropdown
+              disabled={isYearDisabled()}
+              selectedKey={yearFrom}
+              onChange={onChangeYearFrom}
+              placeholder="Select an option"
+              options={generateYearOptions()[0]}
+            />
+          </div>
+
+          <div style={{ marginRight: 10, width: "50%" }}>
+            <Dropdown
+              disabled={isYearDisabled()}
+              selectedKey={yearTo}
+              onChange={onChangeYearTo}
+              placeholder="Select an option"
+              options={generateYearOptions()[1]}
+            />
+          </div>
+        </div>
+      </SC.FilterItem>
+
+      <SC.FilterItem>
+        <ThemeToggle />
+      </SC.FilterItem>
+    </SC.SideBarContainer>
   );
 };
 
