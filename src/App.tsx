@@ -13,7 +13,6 @@ import { useIsFetching } from "react-query";
 import { RoutePaths } from "./enums";
 
 function App() {
-  console.log("App rerendered");
   const [searchString, setSearchString] = useState<string>("");
   const { pathname } = useLocation();
   const history = useHistory();
