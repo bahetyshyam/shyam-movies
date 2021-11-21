@@ -17,11 +17,16 @@ function App() {
   const { pathname } = useLocation();
   const history = useHistory();
 
+  //If the user is coming back to any other tab back from search
+  //we need to set the search string back to empty
   useEffect(() => {
     if (pathname !== RoutePaths.SEARCH) {
       setSearchString("");
     }
   }, [pathname]);
+
+  //If the user starts to search in any other tab,
+  //he needs to be moved to the /search url
   useEffect(() => {
     if (searchString.length > 0 && pathname !== RoutePaths.SEARCH) {
       history.push(RoutePaths.SEARCH);

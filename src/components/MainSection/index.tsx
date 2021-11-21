@@ -7,6 +7,7 @@ interface MainSectionProps {
   searchString: string;
 }
 
+//Component where all the routes are defined
 const MainSection: React.FC<MainSectionProps> = ({ searchString }) => {
   return (
     <SC.MainSectionContainer>

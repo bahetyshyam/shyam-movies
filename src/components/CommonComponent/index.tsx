@@ -13,9 +13,11 @@ const CommonComponent: React.FunctionComponent<CommonComponentProps> = ({
   const [debouncedSearchItem, setDebouncedSearchItem] =
     useState<string>(searchString);
 
+  //Custom query hook which recieves the debounced search string
   const { isLoading, data, isError, error } =
     useCustomQuery(debouncedSearchItem);
 
+  //Debouncing the search query by 1000ms
   // eslint-disable-next-line
   const debouncedUpdate = useCallback(
     debounce((searchString: string) => {
@@ -23,6 +25,9 @@ const CommonComponent: React.FunctionComponent<CommonComponentProps> = ({
     }, 1000),
     [setDebouncedSearchItem]
   );
+
+  //Whenever the actual searchString updates in the search box
+  //we send it to the debounced method
   useEffect(() => {
     debouncedUpdate(searchString);
   }, [searchString, debouncedUpdate]);
