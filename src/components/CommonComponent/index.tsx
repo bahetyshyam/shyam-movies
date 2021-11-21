@@ -1,22 +1,20 @@
-import { useCallback, useEffect, useState } from "react";
-import { useFilter } from "../../contexts/FilterContext";
-import MovieTvItems from "../MovieTvItems";
-import useSearch from "./hooks";
 import { debounce } from "lodash";
+import { useCallback, useEffect, useState } from "react";
+import useCustomQuery from "../../hooks/useCustomQuery";
+import MovieTvItems from "../MovieTvItems";
 
-interface SearchProps {
+interface CommonComponentProps {
   searchString: string;
 }
 
-const Search: React.FunctionComponent<SearchProps> = ({ searchString }) => {
+const CommonComponent: React.FunctionComponent<CommonComponentProps> = ({
+  searchString,
+}) => {
   const [debouncedSearchItem, setDebouncedSearchItem] =
     useState<string>(searchString);
-  const { type } = useFilter();
 
-  const { isLoading, data, isError, error } = useSearch(
-    type,
-    debouncedSearchItem
-  );
+  const { isLoading, data, isError, error } =
+    useCustomQuery(debouncedSearchItem);
 
   // eslint-disable-next-line
   const debouncedUpdate = useCallback(
@@ -38,4 +36,4 @@ const Search: React.FunctionComponent<SearchProps> = ({ searchString }) => {
   );
 };
 
-export default Search;
+export default CommonComponent;

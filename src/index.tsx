@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import { initializeIcons } from "@fluentui/react";
-
+import { ReactQueryDevtools } from "react-query/devtools";
 const queryClient = new QueryClient();
 initializeIcons();
 
@@ -15,6 +15,7 @@ ReactDOM.render(
       <ThemeProvider>
         <App />
       </ThemeProvider>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   </Router>,
   document.getElementById("root")

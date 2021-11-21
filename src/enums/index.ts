@@ -12,3 +12,12 @@ export enum MovieTVType {
   Movie = "movie",
   TV = "tv",
 }
+
+export enum RoutePaths {
+  HOME = "/",
+  POPULAR = "/popular",
+  TRENDING = "/trending",
+  NEWEST = "/newest",
+  TOP_RATED = "/top-rated",
+  SEARCH = "/search",
+}

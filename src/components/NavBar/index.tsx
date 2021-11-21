@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Pivot, PivotItem, SearchBox } from "@fluentui/react";
 import { useHistory, useLocation } from "react-router";
 import SC from "./styles";
+import { RoutePaths } from "../../enums";
 
 interface NavBarProps {
   searchString: string;
@@ -23,20 +24,19 @@ const NavBar: React.FC<NavBarProps> = ({ searchString, setSearchString }) => {
   return (
     <SC.NavContainer>
       <SC.AppName>
-        <Link to="/popular">Discover</Link>
+        <Link to={RoutePaths.POPULAR}>Discover</Link>
       </SC.AppName>
       <SC.NavItemsContainer>
         <Pivot
-          aria-label="Separately Rendered Content Pivot Example"
-          selectedKey={pathname === "/search" ? null : pathname}
+          selectedKey={pathname === RoutePaths.SEARCH ? null : pathname}
           // eslint-disable-next-line react/jsx-no-bind
           onLinkClick={handleLinkClick}
           headersOnly={true}
         >
-          <PivotItem headerText="POPULAR" itemKey="/popular" />
-          <PivotItem headerText="TRENDING" itemKey="/trending" />
-          <PivotItem headerText="NEWEST" itemKey="/newest" />
-          <PivotItem headerText="TOP RATED" itemKey="/top-rated" />
+          <PivotItem headerText="POPULAR" itemKey={RoutePaths.POPULAR} />
+          <PivotItem headerText="TRENDING" itemKey={RoutePaths.TRENDING} />
+          <PivotItem headerText="NEWEST" itemKey={RoutePaths.NEWEST} />
+          <PivotItem headerText="TOP RATED" itemKey={RoutePaths.TOP_RATED} />
         </Pivot>
       </SC.NavItemsContainer>
 

@@ -1,0 +1,138 @@
+import { MovieTVType } from "../enums";
+import axios from "./index";
+
+export async function fetchPopularItems(
+  type: MovieTVType,
+  genreId: string | number,
+  yearFrom: string,
+  yearTo: string
+): Promise<Movie[] | TV[]> {
+  try {
+    if (type === MovieTVType.Movie) {
+      const response = await axios.get("movie/popular", {
+        params: {
+          with_genres: genreId === "all" ? "" : genreId,
+          "primary_release_date.gte": yearFrom,
+          "primary_release_date.lte": yearTo,
+        },
+      });
+      return response.data.results;
+    } else {
+      const response = await axios.get("/tv/popular", {
+        params: {
+          with_genres: genreId === "all" ? "" : genreId,
+          "first_air_date.gte": yearFrom,
+          "first_air_date.lte": yearTo,
+        },
+      });
+      return response.data.results;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function fetchTrendingItems(
+  type: MovieTVType
+): Promise<Movie[] | TV[]> {
+  try {
+    if (type === MovieTVType.Movie) {
+      const response = await axios.get("trending/movie/week", {});
+      return response.data.results;
+    } else {
+      const response = await axios.get("trending/tv/week", {});
+      return response.data.results;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function fetchNewestItems(
+  type: MovieTVType,
+  genreId: string | number
+): Promise<Movie[] | TV[]> {
+  try {
+    if (type === MovieTVType.Movie) {
+      const response = await axios.get("discover/movie", {
+        params: {
+          with_genres: genreId === "all" ? "" : genreId,
+          sort_by: "primary_release_date.desc",
+          "primary_release_date.lte": new Date().toISOString().split("T")[0],
+        },
+      });
+      return response.data.results;
+    } else {
+      const response = await axios.get("discover/tv", {
+        params: {
+          with_genres: genreId === "all" ? "" : genreId,
+          sort_by: "first_air_date.desc",
+          "first_air_date.lte": new Date().toISOString().split("T")[0],
+        },
+      });
+      return response.data.results;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function fetchTopRatedItems(
+  type: MovieTVType,
+  genreId: string | number,
+  yearFrom: string,
+  yearTo: string
+): Promise<Movie[] | TV[]> {
+  try {
+    if (type === MovieTVType.Movie) {
+      const response = await axios.get("movie/top_rated", {
+        params: {
+          with_genres: genreId === "all" ? "" : genreId,
+          "primary_release_date.gte": yearFrom,
+          "primary_release_date.lte": yearTo,
+        },
+      });
+      return response.data.results;
+    } else {
+      const response = await axios.get("tv/top_rated", {
+        params: {
+          with_genres: genreId === "all" ? "" : genreId,
+          "first_air_date.gte": yearFrom,
+          "first_air_date.lte": yearTo,
+        },
+      });
+      return response.data.results;
+    }
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function fetchSearchItems(
+  type: MovieTVType,
+  searchString: string
+): Promise<Movie[] | TV[]> {
+  if (searchString === "") {
+    // eslint-disable-next-line
+    throw "A search string must be provided";
+  }
+  try {
+    if (type === MovieTVType.Movie) {
+      const response = await axios.get("search/movie", {
+        params: {
+          query: searchString,
+        },
+      });
+      return response.data.results;
+    } else {
+      const response = await axios.get("search/tv", {
+        params: {
+          query: searchString,
+        },
+      });
+      return response.data.results;
+    }
+  } catch (err) {
+    throw (err as any).response.data.errors[0];
+  }
+}

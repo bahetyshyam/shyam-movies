@@ -2,7 +2,7 @@ import { Dropdown, IDropdownOption } from "@fluentui/react";
 import { useCallback } from "react";
 import { useLocation } from "react-router";
 import { useFilter } from "../../contexts/FilterContext";
-import { MovieTVType } from "../../enums";
+import { MovieTVType, RoutePaths } from "../../enums";
 import { getYearFromDateString } from "../../utils";
 import SC from "./styles";
 import ThemeToggle from "./ThemeToggle";
@@ -87,15 +87,16 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
   };
 
   const isGenreDisabled = () => {
-    if (pathname === "/trending" || pathname === "/search") return true;
+    if (pathname === RoutePaths.TRENDING || pathname === RoutePaths.SEARCH)
+      return true;
     else return false;
   };
 
   const isYearDisabled = () => {
     if (
-      pathname === "/trending" ||
-      pathname === "/newest" ||
-      pathname === "/search"
+      pathname === RoutePaths.TRENDING ||
+      pathname === RoutePaths.NEWEST ||
+      pathname === RoutePaths.SEARCH
     )
       return true;
     else return false;

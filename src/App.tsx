@@ -10,6 +10,7 @@ import { FilterProvider } from "./contexts/FilterContext";
 import { AppContainer } from "./globalStyles";
 
 import { useIsFetching } from "react-query";
+import { RoutePaths } from "./enums";
 
 function App() {
   const [searchString, setSearchString] = useState<string>("");
@@ -17,15 +18,13 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    if (pathname !== "/search") {
-      console.log("clearing search string");
+    if (pathname !== RoutePaths.SEARCH) {
       setSearchString("");
     }
   }, [pathname]);
   useEffect(() => {
-    if (searchString.length > 0 && pathname !== "/search") {
-      console.log("pushing to search");
-      history.push("/search");
+    if (searchString.length > 0 && pathname !== RoutePaths.SEARCH) {
+      history.push(RoutePaths.SEARCH);
     }
     // eslint-disable-next-line
   }, [searchString]);

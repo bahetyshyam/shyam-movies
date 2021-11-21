@@ -48,7 +48,7 @@ const MovieTvItems: React.FunctionComponent<MovieTvItemsProps> = ({
       }
 
       return (
-        <SC.ItemContainer>
+        <SC.ItemContainer key={item.id}>
           <img
             key={item.id}
             src={imageSource()}
