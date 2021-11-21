@@ -16,7 +16,7 @@ type FilterContextType = {
   updateYearTo: (yearTo: string) => void;
 };
 
-const contextDefaultValues: FilterContextType = {
+export const contextDefaultValues: FilterContextType = {
   type: MovieTVType.Movie,
   genreId: "all",
   yearFrom: "2020-01-01",
@@ -28,7 +28,7 @@ const contextDefaultValues: FilterContextType = {
   updateYearFrom: () => {},
   updateYearTo: () => {},
 };
-const FilterContext =
+export const FilterContext =
   React.createContext<FilterContextType>(contextDefaultValues);
 
 export function useFilter() {
