@@ -6,7 +6,13 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import { initializeIcons } from "@fluentui/react";
 import { ReactQueryDevtools } from "react-query/devtools";
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 initializeIcons();
 
 ReactDOM.render(
