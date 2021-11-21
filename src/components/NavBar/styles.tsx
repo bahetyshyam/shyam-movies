@@ -23,7 +23,8 @@ export const AppName = styled.div`
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
-  a {
+  a,
+  span {
     text-decoration: none;
     color: inherit;
   }

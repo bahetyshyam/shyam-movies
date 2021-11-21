@@ -13,10 +13,10 @@ import { useIsFetching } from "react-query";
 import { RoutePaths } from "./enums";
 
 function App() {
+  console.log("App rerendered");
   const [searchString, setSearchString] = useState<string>("");
   const { pathname } = useLocation();
   const history = useHistory();
-
   //If the user is coming back to any other tab back from search
   //we need to set the search string back to empty
   useEffect(() => {

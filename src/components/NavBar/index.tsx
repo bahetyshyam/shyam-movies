@@ -3,6 +3,7 @@ import { Pivot, PivotItem, SearchBox } from "@fluentui/react";
 import { useHistory, useLocation } from "react-router";
 import SC from "./styles";
 import { RoutePaths } from "../../enums";
+import useUrlQueryParams from "../../hooks/useUrlQueryParams";
 
 interface NavBarProps {
   searchString: string;
@@ -12,6 +13,8 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ searchString, setSearchString }) => {
   const { pathname } = useLocation();
   const history = useHistory();
+  useUrlQueryParams(searchString);
+
   const handleSearchChange = (newValue: string) => {
     if (newValue === undefined) {
       return;
@@ -19,12 +22,17 @@ const NavBar: React.FC<NavBarProps> = ({ searchString, setSearchString }) => {
     setSearchString(newValue);
   };
   const handleLinkClick = (item?: PivotItem | undefined) => {
+    if (pathname === item?.props.itemKey!) return;
     history.push(item?.props.itemKey!);
   };
   return (
     <SC.NavContainer>
       <SC.AppName>
-        <Link to={RoutePaths.POPULAR}>Discover</Link>
+        {pathname === RoutePaths.POPULAR ? (
+          <span>Discover</span>
+        ) : (
+          <Link to={RoutePaths.POPULAR}>Discover</Link>
+        )}
       </SC.AppName>
       <SC.NavItemsContainer>
         <Pivot

@@ -1,7 +1,7 @@
-import { Dropdown, IDropdownOption } from "@fluentui/react";
+import { Dropdown, IDropdownOption, Rating } from "@fluentui/react";
 import { useCallback } from "react";
 import { useLocation } from "react-router";
-import { useFilter } from "../../contexts/FilterContext";
+import { RatingType, useFilter } from "../../contexts/FilterContext";
 import { MovieTVType, RoutePaths } from "../../enums";
 import { getYearFromDateString } from "../../utils";
 import SC from "./styles";
@@ -21,6 +21,8 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
     yearTo,
     updateYearFrom,
     updateYearTo,
+    rating,
+    updateRating,
   } = useFilter();
   const typeDropdownOptions = [
     { key: MovieTVType.Movie, text: "Movie" },
@@ -86,6 +88,13 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
     }
   };
 
+  const onChangeRating = (
+    event: React.FormEvent<HTMLElement>,
+    rating?: number
+  ): void => {
+    updateRating(rating as RatingType);
+  };
+
   const isGenreDisabled = () => {
     if (pathname === RoutePaths.TRENDING || pathname === RoutePaths.SEARCH)
       return true;
@@ -97,6 +106,16 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
       pathname === RoutePaths.TRENDING ||
       pathname === RoutePaths.NEWEST ||
       pathname === RoutePaths.SEARCH
+    )
+      return true;
+    else return false;
+  };
+
+  const isRatingDisabed = () => {
+    if (
+      pathname === RoutePaths.TOP_RATED ||
+      pathname === RoutePaths.SEARCH ||
+      pathname === RoutePaths.TRENDING
     )
       return true;
     else return false;
@@ -148,6 +167,16 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
             />
           </div>
         </div>
+      </SC.FilterItem>
+
+      <SC.FilterItem>
+        <label>Rating</label>
+        <Rating
+          rating={rating}
+          max={5}
+          onChange={onChangeRating}
+          disabled={isRatingDisabed()}
+        />
       </SC.FilterItem>
 
       <SC.FilterItem>
