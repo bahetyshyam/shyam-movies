@@ -67,12 +67,14 @@ const MovieTvItems: React.FunctionComponent<MovieTvItemsProps> = ({
         <Spinner size={SpinnerSize.large} />
       </div>
     );
-  } else {
+  } else if (items?.length === 0) {
     return (
-      <SC.ItemsContainer>
-        {items?.length === 0 ? <div>No items found</div> : renderItems(items)}
-      </SC.ItemsContainer>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        No Items found
+      </div>
     );
+  } else {
+    return <SC.ItemsContainer>{renderItems(items)}</SC.ItemsContainer>;
   }
 };
 
